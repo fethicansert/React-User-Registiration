@@ -1,0 +1,83 @@
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* EE2F2F */
+/* 040346 */
+body {
+
+}
+
+.App{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.register {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  background: #242364;
+  color: rgb(227, 227, 227);
+}
+
+.register form{
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.register-title{
+  font-size: 2.5rem;
+}
+
+.register label{
+  display: block;
+}
+
+.fa-check,
+.fa-xmark{
+  margin-left: 5px;
+}
+
+.fa-check{
+  color: #4EC9B0;
+}
+
+.fa-xmark{
+  color: #EE2F2F;
+}
+
+.username-input{
+  width: 100%;
+  padding: .45rem 0;
+  margin-top: .2rem;
+  border-radius: 3px;
+  border: none;
+  text-indent: 5px;
+}
+
+.valid-username{
+  outline: 2px solid #4EC9B0;
+}
+
+.invalid-username{
+  outline: 2px solid #EE2F2F;
+}
+
+.instruction{
+  margin-top: .5rem;
+  background: #EE2F2F;
+  border-radius: 5px;
+  padding: .5rem;
+}
+
+.offscreen{
+  display: none;
+}
