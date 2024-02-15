@@ -61,7 +61,7 @@ const Register = () => {
         setErrMsg('');
     },[user, pwd , matchPwd])
 
-    const userRef = useRef();
+    const userRef = useRef(); //use to focus when render 
     const errRef = useRef();
 
     const handleSubmit = async (e) => {
@@ -92,7 +92,7 @@ const Register = () => {
                 <form onSubmit={handleSubmit}>
                     <label htmlFor='username'>
                         Username
-                        {validName && 
+                        {validName &&  //showing icons according to validation of inputs
                         <span>
                             <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
                         </span>}
@@ -117,8 +117,8 @@ const Register = () => {
                             aria-invalid= { validName ? 'false' : 'true' }
                             aria-describedby='uidnote'
                     />
-                    <p id='uidnote' className={userFocus && user && 
-                    !validName ? 'instruction' : 'offscreen'}>
+                    <p id='uidnote' className={userFocus && user &&  //we want to show instruction when user focus the input field if they not focus the input field they not going to see inforamtion
+                    !validName ? 'instruction' : 'offscreen'}> 
                         <FontAwesomeIcon icon={faInfoCircle}/>
                         4 to 24 characters.<br/>
                         Must beggin with a letter.<br/>
@@ -126,7 +126,7 @@ const Register = () => {
                     </p>
                     <label htmlFor='password'>
                         Password
-                        {validPwd && 
+                        {validPwd &&  //showing icons according to validation of inputs
                         <span>
                             <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
                         </span>}
@@ -137,7 +137,7 @@ const Register = () => {
                         </span>
                         }
                     </label>
-                    <input  className={pwdFocus && validPwd ? 'input valid-input'
+                    <input  className={pwdFocus && validPwd ? 'input valid-input' //sama logic with username input field valid invalid or just input style according to valdation
                             : !validPwd && pwd ? 'input invalid-input' : 'input'}
                             id='password' 
                             type='password'
@@ -148,12 +148,14 @@ const Register = () => {
                             onFocus={() => setPwdFocus(true)}
                             onBlur={() => setPwdFocus(false)}
                     />
-                    <p className={pwdFocus && pwd && !validPwd ? 'instruction' : 'offscreen'}>
+                    <p className={pwdFocus && pwd &&  //same logic with first instruction field
+                        !validPwd ? 'instruction' : 'offscreen'}> 
                         <FontAwesomeIcon icon={faInfoCircle}/>
                         8 to 24 characters.<br/>
                         Must include uppercase letter and lowercase letter,a number and a special character.<br/>
                         Allowed special characters: 
-                        <span aria-label='exclamation mark'>!</span>
+                        {/* We use span element with aria-label to give information to special characters to page readers do their job */}
+                        <span aria-label='exclamation mark'>!</span> 
                         <span aria-label='at symbol'>@</span>
                         <span aria-label='hashtag'>#</span>
                         <span aria-label='dolar sign'>$</span>
@@ -162,7 +164,7 @@ const Register = () => {
 
                     <label htmlFor='confirmPassword'>
                         Confirm Password
-                        {validMatch && matchPwd &&
+                        {validMatch && matchPwd && //showing icons according to validation of inputs
                         <span>
                             <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
                         </span>}
@@ -173,7 +175,7 @@ const Register = () => {
                         </span>
                         }
                     </label>
-                    <input  className={matchFocus && validMatch && matchPwd ? 'input valid-input'
+                    <input  className={matchFocus && validMatch && matchPwd ? 'input valid-input' //sama logic with username input field valid invalid or just input style according to valdation
                             : !validMatch && matchPwd ? 'input invalid-input' : 'input'}
                             id='confirmPassword'
                             type='password'
@@ -184,7 +186,8 @@ const Register = () => {
                             onFocus={() => setMatchFocus(true)}
                             onBlur={() => setMatchFocus(false)}
                     />
-                    <p className={matchFocus && !validMatch && matchPwd ? 'instruction' : 'offscreen'}>
+                    <p className={matchFocus && !validMatch && //same logic with first instruction field
+                        matchPwd ? 'instruction' : 'offscreen'}>
                         <FontAwesomeIcon icon={faInfoCircle}/>
                         Must match the first password input field.
                     </p>
