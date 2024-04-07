@@ -8,13 +8,18 @@ import useAxiosPrivate from '../hooks/useAxiosPrivate';
 const USERS_URL = '/users';
 
 const Users = () => {
+    console.log("Users Render");
+
     const [users, setUsers] = useState([]);
     const { auth } = useAuth();
+
+    const refresh = useRefreshToken();
     
     const axiosPrivate = useAxiosPrivate();
 
     useEffect(() => {
 
+        console.log("Users use Effect");
         //useEffect execute when component mounted
         let isMountend = true;
         const controller = new AbortController();
@@ -57,6 +62,10 @@ const Users = () => {
                     </ul>
                     : <p>User List is Empty</p>
             }
+            <button onClick={ async () => {
+                const token = await refresh();
+                console.log(token);
+            }}>refresh</button>
         </article>
     )
 }

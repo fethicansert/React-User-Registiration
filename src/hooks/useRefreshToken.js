@@ -15,17 +15,22 @@ const useRefreshToken = () => {
         };
 
         try {
+
             const response = await axios.get(REFRESH_URL, {
                 headers: headerList,
                 withCredentials: true
             });
             const token = response.data.accessToken;
             setAuth(prevAuth => {
-                console.log(prevAuth);
-                console.log({ ...prevAuth, accessToken: token });
+                // console.log(prevAuth);
+                // console.log({ ...prevAuth, accessToken: token });
                 return { ...prevAuth, accessToken: token };
             });
+
+            console.log("AccesToken Refreshed");
+
             return token;
+
         } catch (err) {
             console.log(err);
         }

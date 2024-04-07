@@ -49,7 +49,7 @@ const Login = () => {
                 const accessToken = response.data.accessToken;
                 const roles = response.data.roles;
                 setAuth({user, pwd, roles, accessToken});
-                console.log(roles);
+                // console.log(roles);
                 navigate(fromLocation, { replace: true });
             };
             
