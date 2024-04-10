@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 
+//Bo hook exercise amacli ogrenilmistir ilerde kullanilabilir...
 const useLocalStorage = (keyName, defaultvalue) => {
     
     const [storedValue, setStoredValue] = useState(() => {

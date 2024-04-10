@@ -1,32 +1,19 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import axios from '../api/axios'
 import useAuth from '../hooks/useAuth'
-
+import useLogut from '../hooks/useLogut'
+import { useNavigate } from 'react-router-dom'
 const LOGOUT_URL = '/logout'
 
 const Home = () => {
 
-  const { setAuth, auth } = useAuth();
-  
-  const logoutHandler = async () => {
-            //Set Requset Headers
-    const headerList = {
-      "Content-Type": "application/json",
-      "Accept": "application/json"
-    };
-  
-    try {
-      const response = await axios.post(LOGOUT_URL, {}, {
-        headers: headerList,
-        withCredentials: true
-      });
+  const { auth } = useAuth();
+  const navigate = useNavigate()
+  const logout = useLogut();
 
-      setAuth({});
-      console.log(response);
-    } catch(err) {
-      console.log(err);
-    }
+  const signOut = async () => {
+    await logout();
+    navigate('/linkpage')
   }
 
   return (
@@ -43,7 +30,7 @@ const Home = () => {
 
         <button 
           className='logout-button'
-          onClick={logoutHandler}
+          onClick={signOut}
           >
           Log out
         </button>

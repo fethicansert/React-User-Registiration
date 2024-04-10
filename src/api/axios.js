@@ -5,7 +5,11 @@ const BASE_URL =  'http://localhost:3166'
 
 //Create axios instance for public requests => register login logout refresh
 export default axios.create({
-    baseURL: BASE_URL
+    baseURL: BASE_URL,
+    headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+    }
 });
 
 //Create private axios instance for JWT verify needed requets => get post pu delete users 

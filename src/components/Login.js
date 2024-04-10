@@ -5,16 +5,21 @@ import useAuth from '../hooks/useAuth';
 const LOGIN_URL = '/auth'
 
 const Login = () => {
-    const { setAuth } = useAuth();
+    const { setAuth, setPersist } = useAuth();
     const [user, setUser] = useState('admin');
     const [pwd, setPwd] = useState('1234');
     const [errMsg, setErrMsg] = useState('');
 
+    const [isPersist, setIsPersist] = useState(false);
+
+    console.log(isPersist);
     const userRef = useRef();
     const errRef = useRef();
     
     const navigate = useNavigate();
 
+    //if user try directly to go home page we can use pass location coming from requireAuth route protection component
+    //if client coming login page redirect to home page '/'
     const location = useLocation();
     const fromLocation = location.state?.from.pathname || '/';
 
@@ -25,13 +30,6 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-    
-        //Set Requset Headers
-        const headerList = {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        };
-
         //Set Requset Body
         const bodyContent = {
             user, 
@@ -40,20 +38,20 @@ const Login = () => {
         
         try {
             const response = await axios.post(LOGIN_URL, bodyContent, {
-                headers: headerList,
-                withCredentials: true //Makes browser include cookies and authentication headers in requests
+                withCredentials: true //Makes browser include cookies and authentication headers in requests and allow server to set cookies
             });
             
-   
+            //if login(authentication) OK 
+            //set Auth properties
+            //navigate to desired page
             if(response.status === 200) {
                 const accessToken = response.data.accessToken;
                 const roles = response.data.roles;
                 setAuth({user, pwd, roles, accessToken});
-                // console.log(roles);
                 navigate(fromLocation, { replace: true });
-            };
-            
-          
+                setLocalPersist();
+            }
+        
         } catch(err) {
             if(!err?.response) {
                 setErrMsg("No server response");
@@ -65,6 +63,12 @@ const Login = () => {
             }
         }
     };
+
+    const setLocalPersist = () => {
+        setPersist(isPersist);
+        localStorage.setItem('persist', isPersist);
+    }
+
 
     return (
         <section className='main-container'>
@@ -101,6 +105,16 @@ const Login = () => {
                         required
                     />
                 </div>
+                
+                <label>
+                    <input 
+                        type='checkbox' 
+                        checked={isPersist} 
+                        className='login-checkbox'
+                        onChange={ () => setIsPersist(!isPersist) }
+                    />
+                    Do you want to save user ?
+                </label>
 
                 <button type='submit' className='' disabled={!user || !pwd ? true : false}>
                     Submit

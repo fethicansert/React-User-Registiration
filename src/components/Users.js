@@ -1,28 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import { v4 as uuid } from 'uuid'
-import axios from '../api/axios';
 import useAuth from '../hooks/useAuth';
 import useRefreshToken from '../hooks/useRefreshToken';
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
-
+import { useNavigate, useLocation } from "react-router-dom";
 const USERS_URL = '/users';
 
 const Users = () => {
-    console.log("Users Render");
 
     const [users, setUsers] = useState([]);
-    const { auth } = useAuth();
-
-    const refresh = useRefreshToken();
-    
     const axiosPrivate = useAxiosPrivate();
+    const navigate = useNavigate();
+    const location = useLocation();
 
+   
     useEffect(() => {
 
-        console.log("Users use Effect");
-        //useEffect execute when component mounted
         let isMountend = true;
-        const controller = new AbortController();
+        const controller = new AbortController(); //controller for aborting axios request
 
         const getUsers = async () => {
             try {
@@ -30,27 +25,23 @@ const Users = () => {
                     withCredentials: true,
                     signal: controller.signal
                 });
-
-                isMountend && setUsers(response.data);
+                isMountend && setUsers(response.data); //set data if component mounted
             } catch (err) {
-                if(err.response?.status === 403){
-                    
-                }
+                console.log(err);
+                navigate('/login', { state: { from: location },  replace: true } );
             }
         };
 
         getUsers();
 
         const cleanUp = () => {
-            //clean up function execute when copmonent unmounted
-            isMountend = false;
-            controller.abort();
+            isMountend = false; //set isMounted false we don't want unnessary state setting
+            controller.abort(); //abort axios request if component unmount
         }
 
-        //We can cancel request if component unmounted 
         return cleanUp;
 
-    }, [auth])
+    }, []);
 
     return (
         <article>
@@ -62,10 +53,6 @@ const Users = () => {
                     </ul>
                     : <p>User List is Empty</p>
             }
-            <button onClick={ async () => {
-                const token = await refresh();
-                console.log(token);
-            }}>refresh</button>
         </article>
     )
 }

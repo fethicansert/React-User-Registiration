@@ -9,6 +9,7 @@ const useAxiosPrivate = () => {
   const refresh = useRefreshToken();
   const { auth } = useAuth();
 
+
   useEffect(() => {
   
     //Create request interceptor.
@@ -17,7 +18,7 @@ const useAxiosPrivate = () => {
       // config == current request
       async (config) => { 
 
-        //check if authorization header exist if not add header BEFORE request send.
+        //check if authorization header exist if not add header before request sent.
         if(!config.headers['Authorization']) { 
           config.headers['Authorization'] = `Bearer ${auth.accessToken}`;
         };
@@ -35,9 +36,9 @@ const useAxiosPrivate = () => {
 
         //Get the prev request we sent.
         const prevRequest = error?.config;
-      
+        
         //Chech if response 403(Forbiden) and if request was sented again.
-        if((error.response.status === 403) && (!prevRequest?.sent)){
+        if((error.response.status === 403) && (!prevRequest?.sent)){ //prevRequest.sent ile tek bir kez refreshlemeye calistigima emin oluyoruz
           prevRequest.sent = true;
 
           //refresh timeout token with refreshed token.
@@ -53,7 +54,6 @@ const useAxiosPrivate = () => {
 
     //Clean interceptors at unmounted state.
     return () => {
-      console.log("Interceptors Cleaned");
       axiosPrivate.interceptors.response.eject(responseInterceptor);
       axiosPrivate.interceptors.request.eject(requestInterceptor);
     };

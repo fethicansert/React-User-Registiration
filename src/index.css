@@ -110,8 +110,8 @@ header{
   margin-bottom: .2rem;
 }
 
-.login-container input,
-.register-container input{
+.login-input,
+.register-input{
   font-size: 1.1rem;
   padding: .5rem 0;
   margin-bottom: 1.2rem;
@@ -120,8 +120,8 @@ header{
   text-indent: 5px;
 }
 
-.login-container  input:focus,
-.register-container input:focus{
+.login-input:focus,
+.register-input:focus{
   outline: 2px solid var(--main-color);
 }
 
@@ -148,6 +148,10 @@ header{
 .login-container button:disabled,
 .register-container button:disabled{
   opacity: .7;
+}
+
+.login-checkbox{
+  margin-right: .3rem;
 }
 
 .already-sigin-text,

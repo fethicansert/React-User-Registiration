@@ -123,7 +123,7 @@ const Register = () => {
                     </label>
                     <input
                         id='username-field'
-                        className={user && !validName ? 'login-input input-err' : 'login-input'}
+                        className={user && !validName ? 'register-input input-err' : 'register-input'}
                         type='text'
                         required
                         value={user}
@@ -151,7 +151,7 @@ const Register = () => {
                     </label>
                     <input
                         id='password-field'
-                        className={pwd && !validPwd ? 'login-input input-err' : 'login-input'}
+                        className={pwd && !validPwd ? 'register-input input-err' : 'register-input'}
                         type='password'
                         required
                         value={pwd}
@@ -182,7 +182,7 @@ const Register = () => {
                     </label>
                     <input
                         id='confirm-password'
-                        className={matchPwd && !validMatch ? 'login-input input-err' : 'login-input'}
+                        className={matchPwd && !validMatch ? 'register-input input-err' : 'register-input'}
                         type='password'
                         required
                         value={matchPwd}
@@ -206,7 +206,7 @@ const Register = () => {
                     Submit
                 </button>
 
-                {/*Navigation to login page*/}
+                {/*Navigation to register page*/}
                 <span className='already-sigin-text'>Already Sign up?</span>
                 <Link to={'/login'}><p className='sigin-text'>Sign in</p></Link>
             </form>
